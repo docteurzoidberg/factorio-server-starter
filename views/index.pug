@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  h1 Factorio Server Starter
+
+  if(!status)
+    p Welcome to our Factorio Server
+    p Enter unique token to start the game =)
+    form(method="POST", action="/start")
+      input(name="token")
+      | &nbsp;
+      button(type="submit") Start server
+
+  else
+    p
+      |Server:
+      =status
