@@ -1,2 +1,2 @@
 # factorio-server-starter
-Start/Stop Multiplayer Facotorio Server
+Start/Stop Multiplayer Factorio Server
