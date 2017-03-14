@@ -1,11 +1,22 @@
 var fs = require("fs");
 var spawn = require('child_process').spawn;
+var ps = require("ps-node");
 var crypto = require("crypto");
 
 var Factorio = {};
 
 var process='/home/factorio/factorio/bin/x64/factorio';
 var args=['--start-server', '/home/factorio/factorio/saves/leekwarstorio.zip'];
+
+Factorio.getStatus = function(callback) {
+    ps.lookup({command:"factorio"}, function(err, list) {
+        if(err) return callback(err);
+        if(list.length<=0) {
+            return callback(false, {running: false});
+        }
+        return callback(false, {running: true, pid: list[0].pid});
+    });
+};
 
 Factorio.generateToken = function(callback) {
     var token = crypto.randomBytes(20).toString('hex');
@@ -23,10 +34,17 @@ Factorio.checkToken = function(token, callback) {
 };
 
 Factorio.startServer = function(token, callback) {
-    fs.unlink('./tokens/' + token + '.txt', function(err) {
-        if(err) return callback(err);
-        spawn(process, args);
-        callback(false, "Started");
+    Factorio.getStatus(function(err, status) {
+        if(err)
+            return callback(err);
+        if(status.running==true) 
+            return callback(new Error('Server already started'));
+
+        fs.unlink('./tokens/' + token + '.txt', function(err) {
+            if(err) return callback(err);
+            spawn(process, args);
+            callback(false, "Started");
+        });
     });
 };
 

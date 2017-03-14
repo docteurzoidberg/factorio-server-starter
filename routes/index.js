@@ -6,7 +6,7 @@ var factorio = require('../factorio');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express', serverstatus: req.serverstatus  });
 });
 
 /* POST start server. */
@@ -19,7 +19,7 @@ router.post('/start', function(req, res, next) {
     if(err) return next(err);
     factorio.startServer(token, function(err, status) {
         if(err) return next(err);
-        res.render('index', { title: 'Express', status: status });
+        res.render('index', { title: 'Express', status: status, serverstatus: req.serverstatus });
     });
   });
 });
