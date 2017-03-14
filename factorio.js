@@ -1,11 +1,11 @@
 var fs = require("fs");
-var cmd=require('node-cmd');
+var spawn = require('child_process').spawn;
 var crypto = require("crypto");
 
 var Factorio = {};
 
-var serverPath='/home/factorio/factorio/';
-var serverCmd = './bin/x64/factorio --start-server ./saves/leekwarstorio.zip';
+var process='/home/factorio/factorio/bin/x64/factorio';
+var args=['--start-server', '/home/factorio/factorio/saves/leekwarstorio.zip'];
 
 Factorio.generateToken = function(callback) {
     var token = crypto.randomBytes(20).toString('hex');
@@ -25,7 +25,7 @@ Factorio.checkToken = function(token, callback) {
 Factorio.startServer = function(token, callback) {
     fs.unlink('./tokens/' + token + '.txt', function(err) {
         if(err) return callback(err);
-        cmd.run(serverPath+serverCmd);
+        spawn(process, args);
         callback(false, "Started");
     });
 };
