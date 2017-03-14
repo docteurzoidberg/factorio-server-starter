@@ -2,10 +2,12 @@ extends layout
 
 block content
 
-  h1 Factorio Server Starter
+  img(src="/logo.png")
+
+  h1 Welcome to our Factorio Server Starter
 
   if(!status)
-    p Welcome to our Factorio Server
+
     p Enter unique token to start the game =)
     form(method="POST", action="/start")
       input(name="token")
@@ -18,3 +20,6 @@ block content
       =status
 
 
+  h3 Server address:
+    |&nbsp;
+    span factorio.tppt.eu
