@@ -9,7 +9,7 @@ var cmd = binPath + "bin/x64/factorio --start-server ./saves/leekwarstorio.zip";
 
 
 Factorio.generateToken = function(callback) {
-    var token = crypto.createHash('sha1').digest('hex');
+    var token = crypto.randomBytes(20).toString('hex');
     fs.writeFile('./tokens/' + token + '.txt', function(err) {
         if(err) return callback(err);
         callback(false, token);
