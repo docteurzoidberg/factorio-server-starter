@@ -20,12 +20,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 function getServerStatus(req, res, next) {
-  factorio.getStatus(function (err, status) {
-    req.serverstatus = {running: false};
-    next();
+  factorio.getStatus(function(err, status) {
+    if(err) return next(err);
+    req.serverstatus = status;
+    next(false, req);
   });
 }
 

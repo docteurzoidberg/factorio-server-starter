@@ -6,7 +6,7 @@ block content
 
   h1 Welcome to our Factorio Server Starter
 
-  if(!status)
+  if(!status && !serverstatus.running)
 
     p Enter unique token to start the game =)
     form(method="POST", action="/start")
@@ -14,17 +14,22 @@ block content
       | &nbsp;
       button(type="submit") Start server
 
-  else
+  if(status)
     p
       |Server:
       =status
 
-
   h3 Server address:
     |&nbsp;
     span factorio.tppt.eu
+  h3 Modpack: 
+    a(href="/modpack",target="new") Generate modpack.zip
+    span (26MB)
+
 
   if(serverstatus.running)
-    h3 Server is UP !
+    h3 Server is UP ! (pid=
+      =serverstatus.pid
+      |)
   else
     h3 Server is down.

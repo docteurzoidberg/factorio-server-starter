@@ -9,12 +9,13 @@ var process='/home/factorio/factorio/bin/x64/factorio';
 var args=['--start-server', '/home/factorio/factorio/saves/leekwarstorio.zip'];
 
 Factorio.getStatus = function(callback) {
-    ps.lookup({command:"factorio"}, function(err, list) {
+    ps.lookup({command:"factorio", psargs: "ux"}, function(err, list) {
         if(err) return callback(err);
-        if(list.length<=0) {
-            return callback(false, {running: false});
+        //console.dir(list);
+	if(list[0]) {
+	    return callback(false, {running: true, pid: list[0].pid});
         }
-        return callback(false, {running: true, pid: list[0].pid});
+        return callback(false, {running: false, pid: null});
     });
 };
 
@@ -42,7 +43,8 @@ Factorio.startServer = function(token, callback) {
 
         fs.unlink('./tokens/' + token + '.txt', function(err) {
             if(err) return callback(err);
-            spawn(process, args);
+		
+            spawn(process, args, {detached: true, cwd:"/home/factorio/factorio"});
             callback(false, "Started");
         });
     });
