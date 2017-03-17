@@ -17,12 +17,13 @@ Factorio.getStatus = function(callback) {
         var returnObj = {
             running: false,
             pid: null,
-            playerCount: 0
+            playercount: 0
         };
 
 	    if(!list[0])
 	        return callback(false, returnObj);
 
+        returnObj.running = true;
         returnObj.pid = list[0].pid;
 
         fs.readFile(home + '/script-output/playerscount.txt', function(err, data) {
