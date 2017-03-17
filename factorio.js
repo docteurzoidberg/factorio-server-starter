@@ -1,4 +1,5 @@
 var fs = require("fs");
+var path = require("path");
 var spawn = require('child_process').spawn;
 var ps = require("ps-node");
 var crypto = require("crypto");
@@ -9,6 +10,27 @@ var home = "/home/factorio/factorio";
 var process= home + "/bin/x64/factorio";
 var args=["--start-server", home + "/saves/leekwarstorio.zip"];
 
+Factorio.getPlayers = function(callback) {
+    var  p = home + "/script-output/players";
+    fs.readdir(p, function (err, files) {
+        if (err)
+            return callback(err);
+
+        var players = [];
+
+        files.map(function (file) {
+            return path.join(p, file);
+         }).filter(function (file) {
+            return fs.statSync(file).isFile();
+        }).forEach(function (file) {
+            var player = JSON.parse(fs.readFileSync(file));
+            players.push(player);
+        });
+
+        callback(false, players);
+    });
+};
+
 Factorio.getStatus = function(callback) {
     ps.lookup({command:"factorio", psargs: "ux"}, function(err, list) {
 
@@ -17,7 +39,8 @@ Factorio.getStatus = function(callback) {
         var returnObj = {
             running: false,
             pid: null,
-            playercount: 0
+            playercount: 0,
+ 	    players: []
         };
 
 	    if(!list[0])
@@ -27,12 +50,19 @@ Factorio.getStatus = function(callback) {
         returnObj.pid = list[0].pid;
 
         fs.readFile(home + '/script-output/playerscount.txt', function(err, data) {
-
             if(err)
                 return callback(err, returnObj);
+            
+	    returnObj.playercount = parseInt(data, 10);
 
-            returnObj.playercount = parseInt(data, 10);
-            return callback(false, returnObj);
+	    Factorio.getPlayers(function(err, players) {
+		if(err) {
+			return callback(err, returnObj);
+		}
+		returnObj.players = players;
+	        return callback(false, returnObj);   	
+	    });
+
         });
     });
 };
