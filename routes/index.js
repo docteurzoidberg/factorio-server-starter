@@ -4,6 +4,19 @@ var factorio = require('../factorio');
 var zipFolder = require('zip-folder');
 
 
+/* GET status */
+router.get('/status', function(req,res,next) {
+    res.setHeader('Content-Type', 'application/json');
+    factorio.getStatus(function(err, status) {
+	if(err) {
+		res.status(500);
+		res.send(JSON.stringify(err));	
+		return;
+	}
+	res.send(JSON.stringify(status));
+    });
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
