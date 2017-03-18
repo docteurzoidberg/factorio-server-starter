@@ -1,10 +1,13 @@
-h3
-  i.fa.fa-circle(style="color: red;") &nbsp;
-  |Server is offline.
+.panel.panel-danger
 
-if(!status && !serverstatus.running)
-  p Enter unique token to start the game
-  form(method="POST", action="/start")
-    input(name="token")
-    | &nbsp;
-    button(type="submit") Start server
+  .panel-heading
+    h3.panel-title
+      strong Server is offline.
+
+  .panel-body
+    if(!status)
+      p Enter unique token to start the game
+      form(method="POST", action="/start")
+        input(name="token")
+        | &nbsp;
+        button.btn.btn-success(type="submit") Start server

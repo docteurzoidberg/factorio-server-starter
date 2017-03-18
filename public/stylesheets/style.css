@@ -11,6 +11,17 @@ h1, h2, h3, h4 {
  font-family: "Open Sans";
 }
 
+h1 {
+ color: rgba(255,255,255,.7);
+}
+
+.container {
+	width: 400px;
+	background-color: rgba(0,0,0,.5);
+}
+.well {
+  margin-top: 20px;
+}
 .player {
 	color: #f4c242;
 	font-size: 22pt;

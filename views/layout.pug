@@ -2,18 +2,29 @@ doctype html
 html
   head
     title Factorio Server Starter
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet", href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    link(rel="stylesheet", href="https://bootflat.github.io/bootflat/css/bootflat.css")
+    link(rel="stylesheet", href="/stylesheets/style.css")
     script(src="//use.fontawesome.com/a10e09d732.js")
 
   body
 
     img(src="/logo.png")
     h1 Welcome to our Factorio Server Starter
-    p 
-        h2 Server Adress: 
+    .container    
+      .well 
+        h4 Server Adress: 
           span.serveradress factorio.tppt.eu
-        h2 Modpack:
-          a(target="new", href="/modpack.zip") download
-          | |
-          a(target="new", href="/modpack") generate & download
-    block content
+        h4 Modpack:&nbsp;
+          button.btn.btn-primary(target="new", href="/modpack.zip") 
+            i.fa.fa-download &nbsp;
+            |download
+    
+    .container
+      block content
+
+    script(src="https://code.jquery.com/jquery-1.11.0.min.js")
+    script(src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+    script(src="https://bootflat.github.io/bootflat/js/icheck.min.js")
+    script(src="https://bootflat.github.io/bootflat/js/jquery.fs.selecter.min.js")
+    script(src="https://bootflat.github.io/bootflat/js/jquery.fs.stepper.min.js")
