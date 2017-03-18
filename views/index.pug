@@ -2,7 +2,9 @@ extends layout
 
 block scripts
   script.
+
     var lastStatus = null;
+
     function getStatus() {
       $(function () {
         $.getJSON(
@@ -12,6 +14,7 @@ block scripts
           }
         );
       });
+    }
 
     $(document).ready(function () {
         setInterval(getStatus, 5000);
