@@ -12,7 +12,6 @@ factorio.generateToken(function(err, token) {
 			console.error(err);
 			return;
 		}
-
 		console.log("Server: " + status);
 	});
 });

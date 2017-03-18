@@ -1,5 +1,22 @@
 extends layout
 
+block scripts
+  script.
+    var lastStatus = null;
+    function getStatus() {
+      $(function () {
+        $.getJSON(
+          "/status",
+          function (json) {
+            console.dir(json);
+          }
+        );
+      });
+
+    $(document).ready(function () {
+        setInterval(getStatus, 5000);
+    });
+
 block content
 
   if(serverstatus.running)
