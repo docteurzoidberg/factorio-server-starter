@@ -2,36 +2,13 @@ extends layout
 
 block content
 
-  img(src="/logo.png")
-
-  h1 Welcome to our Factorio Server Starter
-
-  if(!status && !serverstatus.running)
-
-    p Enter unique token to start the game =)
-    form(method="POST", action="/start")
-      input(name="token")
-      | &nbsp;
-      button(type="submit") Start server
-
+  if(serverstatus.running)
+    include online
+  else
+    include offline
   if(status)
     p
       |Server:
       =status
 
-  h3 Server address:
-    |&nbsp;
-    span factorio.tppt.eu
-  h3 Modpack: 
-    a(href="/modpack",target="new") Generate modpack.zip
-    span (26MB)
 
-
-  if(serverstatus.running)
-    h3 Server is UP ! (pid=
-      =serverstatus.pid
-      |)
-    h4 Players: 
-      =serverstatus.playercount
-  else
-    h3 Server is down.

@@ -3,5 +3,17 @@ html
   head
     title Factorio Server Starter
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="//use.fontawesome.com/a10e09d732.js")
+
   body
+
+    img(src="/logo.png")
+    h1 Welcome to our Factorio Server Starter
+    p 
+        h2 Server Adress: 
+          span.serveradress factorio.tppt.eu
+        h2 Modpack:
+          a(target="new", href="/modpack.zip") download
+          | |
+          a(target="new", href="/modpack") generate & download
     block content

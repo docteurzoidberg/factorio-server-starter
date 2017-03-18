@@ -38,7 +38,10 @@ router.post('/start', function(req, res, next) {
 
     factorio.startServer(token, function(err, status) {
         if(err) return next(err);
-        res.render('index', { title: 'Express', status: status, serverstatus: req.serverstatus });
+	factorio.getStatus(function(err, status) {
+		if(err) return next(err);	
+	        res.render('index', { title: 'Express', status: status, serverstatus: status });
+	});
     });
 
   });

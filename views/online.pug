@@ -1,0 +1,14 @@
+h3 
+  i.fa.fa-circle(style="color: green;") &nbsp; 
+  |Server is online ! (pid=
+  =serverstatus.pid
+  |)
+
+h4 Online players: (
+  =serverstatus.playercount
+  |)
+
+each player in serverstatus.players
+  h2.player
+    =player.Name
+

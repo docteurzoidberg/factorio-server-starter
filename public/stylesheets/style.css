@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald');
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Oswald", sans-serif;
   background: url('/background.jpg') scroll;
   text-align: center;
+}
+
+h1, h2, h3, h4 {
+ font-family: "Open Sans";
+}
+
+.player {
+	color: #f4c242;
+	font-size: 22pt;
+	padding: 10px;
+	margin: 0px;
 }
 
 a {

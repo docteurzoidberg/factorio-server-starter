@@ -1,0 +1,10 @@
+h3
+  i.fa.fa-circle(style="color: red;") &nbsp;
+  |Server is offline.
+
+if(!status && !serverstatus.running)
+  p Enter unique token to start the game
+  form(method="POST", action="/start")
+    input(name="token")
+    | &nbsp;
+    button(type="submit") Start server

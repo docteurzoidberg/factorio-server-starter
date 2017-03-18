@@ -1,6 +1,7 @@
 var fs = require("fs");
 var path = require("path");
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 var ps = require("ps-node");
 var crypto = require("crypto");
 
@@ -24,7 +25,8 @@ Factorio.getPlayers = function(callback) {
             return fs.statSync(file).isFile();
         }).forEach(function (file) {
             var player = JSON.parse(fs.readFileSync(file));
-            players.push(player);
+	    if(player.Online)
+		players.push(player);
         });
 
         callback(false, players);
@@ -91,10 +93,20 @@ Factorio.startServer = function(token, callback) {
 
         fs.unlink('./tokens/' + token + '.txt', function(err) {
             if(err) return callback(err);
-            spawn(process, args, {detached: true, cwd:"/home/factorio/factorio"});
+            spawn(process, args, {stdio: 'ignore', detached: true, cwd:"/home/factorio/factorio"}).unref();
             callback(false, "Started");
         });
     });
+};
+
+Factorio.stopServer = function(callback) {
+    Factorio.getStatus(function(err, status) {
+        if(err) return callback(err);
+	if(!status.running)
+      	    return callback(new Error('Server not started'));	
+        exec("/bin/kill -s SIGINT "+ status.pid, {});
+        callback(false, "Stoped");
+    });    
 };
 
 module.exports = Factorio;
