@@ -10,6 +10,14 @@ block scripts
         $.getJSON(
           "/status",
           function (json) {
+            if(json.running != lastStatus) {
+                if(lastStatus===null) {
+                    lastStatus = json.running;
+                } else {
+                    document.location.href="/";
+                }
+            }
+
             console.dir(json);
           }
         );
