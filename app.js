@@ -19,6 +19,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+var getModpackLastUpdate = function(req,res,next) {
+  factorio.getModpackLastUpdate(function(err, lastupdate) {
+    if(err) return next(err);
+    req.modpackLastUpdate = lastupdate;
+    next(false, req);
+  });
+};
+
 var getServerStatus = function(req, res, next) {
   factorio.getStatus(function(err, status) {
     if(err) return next(err);
@@ -27,6 +35,7 @@ var getServerStatus = function(req, res, next) {
   });
 };
 
+app.use(getModpackLastUpdate);
 app.use(getServerStatus);
 app.use('/', index);
 

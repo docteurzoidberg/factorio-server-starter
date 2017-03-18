@@ -1,3 +1,4 @@
+var util = require("util");
 var fs = require("fs");
 var path = require("path");
 var spawn = require('child_process').spawn;
@@ -10,6 +11,14 @@ var Factorio = {};
 var home = "/home/factorio/factorio";
 var process= home + "/bin/x64/factorio";
 var args=["--start-server", home + "/saves/leekwarstorio.zip"];
+
+
+Factorio.getModpackLastUpdate = function(callback) {
+	fs.stat("/home/factorio/www/public/modpack.zip", function(err, stats) {
+		var mtime = new Date(util.inspect(stats.mtime));
+		return callback(err, mtime.toISOString().replace(/T/, ' ').replace(/\..+/, ''));
+	});		
+};
 
 Factorio.getPlayers = function(callback) {
     var  p = home + "/script-output/players";

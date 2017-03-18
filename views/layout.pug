@@ -13,12 +13,16 @@ html
     h1 Welcome to our Factorio Server Starter
     .container    
       .well 
-        h4 Server Address: 
+        h4 Server: 
           span.serveradress factorio.tppt.eu
         h4 Modpack:&nbsp;
           button.btn.btn-primary(target="new", href="/modpack.zip") 
             i.fa.fa-download &nbsp;
             |download
+        small (modpack last update: 
+          =modpackLastUpdate
+          |)
+
     
     .container
       block content

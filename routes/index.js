@@ -19,9 +19,7 @@ router.get('/status', function(req,res,next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-    res.render('index', { title: 'Express', serverstatus: req.serverstatus  });
-
+    res.render('index', { title: 'Express', serverstatus: req.serverstatus, modpackLastUpdate: req.modpackLastUpdate  });
 });
 
 
@@ -53,7 +51,7 @@ router.post('/start', function(req, res, next) {
         if(err) return next(err);
 	factorio.getStatus(function(err, status) {
 		if(err) return next(err);	
-	        res.render('index', { title: 'Express', status: status, serverstatus: status });
+	        res.render('index', { title: 'Express', status: status, serverstatus: status, modpackLastUpdate: req.modpackLastUpdate });
 	});
     });
 
