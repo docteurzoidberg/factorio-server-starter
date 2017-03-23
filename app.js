@@ -31,6 +31,11 @@ var getServerStatus = function(req, res, next) {
   factorio.getStatus(function(err, status) {
     if(err) return next(err);
     req.serverstatus = status;
+    if(status.players) {
+	req.serverstatus.players = status.players.filter(function(player) {
+		return player.Online;
+	});
+    }
     next(false, req);
   });
 };

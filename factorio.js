@@ -34,8 +34,7 @@ Factorio.getPlayers = function(callback) {
             return fs.statSync(file).isFile();
         }).forEach(function (file) {
             var player = JSON.parse(fs.readFileSync(file));
-	    if(player.Online)
-		players.push(player);
+	    players.push(player);
         });
 
         callback(false, players);

@@ -13,6 +13,11 @@ router.get('/status', function(req,res,next) {
 		res.send(JSON.stringify(err));	
 		return;
 	}
+	if(status.players) {
+		status.players = status.players.filter(function(player) {
+			return player.Online;
+		});
+	}
 	res.send(JSON.stringify(status));
     });
 });
