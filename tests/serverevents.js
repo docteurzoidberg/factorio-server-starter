@@ -1,4 +1,4 @@
-var events = require("../serverevents");
+var events = require("../lib/serverevents");
 
 events.on('error', function(err) {
         console.error(err);

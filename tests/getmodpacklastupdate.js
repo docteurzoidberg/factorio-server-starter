@@ -1,4 +1,4 @@
-var factorio = require("../factorio");
+var factorio = require("../lib/factorio");
 
 factorio.getModpackLastUpdate(function(err, lastupdate) {
 	if(err) {

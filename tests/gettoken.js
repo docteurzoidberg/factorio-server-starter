@@ -1,4 +1,4 @@
-var factorio = require('../factorio');
+var factorio = require('../lib/factorio');
 
 factorio.generateToken(function(err, token) {
   if(err) {

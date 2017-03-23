@@ -1,5 +1,7 @@
-var config = require("./discord-credentials.js"); //not on github :)
-var events = require("./serverevents");
+#!/usr/bin/env node
+
+var config = require("../discord-credentials.js"); //not on github :)
+var events = require("../lib/serverevents");
 
 var discord = require("discord.js");
 var discordhook = new discord.WebhookClient(config.id, config.token);
